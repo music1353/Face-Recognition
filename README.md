@@ -46,7 +46,7 @@ Before installing face_recognition, you need to install some packages
 
 
 
-#How To Practice My Ideas ?
+# How To Practice My Ideas ?
 
 1. Recognize the coordinate of eyebrow and eye from image
 2. Calculate y-axis of eyebrow , top y-axis of eye and bottom y-axis of eye
