@@ -88,7 +88,7 @@ def find_box_points(feacture_list):
 # @desc: 辨識眉毛及眼睛座標
 # @input: {string} 原始圖片位置
 # @return: {tuple} 左眉座標, 右眉座標, 左眼低點座標, 右眼低點座標, {list} 左眉box, 右眉box
-def recognize_eye_and_eyebrow_axis(IMG_URL):
+def eye_and_eyebrow_detect(IMG_URL):
     image = face_recognition.load_image_file(IMG_URL)
     face_locations  = face_recognition.face_locations(image, number_of_times_to_upsample=1, model="cnn")
     image_landmarks = face_recognition.face_landmarks(image, face_locations=face_locations)
@@ -113,9 +113,9 @@ def recognize_eye_and_eyebrow_axis(IMG_URL):
 # @desc: 辨識出圖片中眼睛的最高點座標(包含眼皮)
 # @input: {string} 原始圖片位置, 左眉毛箱型座標, 右眉毛箱型座標
 # @return: {list} 第一個為左眼最高點座標, 第二個為右眼最高點座標
-def recognize_eye_top_axis(IMG_URL, left_eyebrow_box, right_eyebrow_box):
-    face_cascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
-    eye_cascade = cv2.CascadeClassifier('haarcascades/haarcascade_eye.xml')
+def eye_top_detect(IMG_URL, left_eyebrow_box, right_eyebrow_box):
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
+    eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_eye.xml')
 
     img = cv2.imread(IMG_URL)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -200,6 +200,6 @@ def draw_point(IMG_URL, draw_points):
     d = ImageDraw.Draw(pil_image)
         
     for point in draw_points:
-        d.ellipse(RecognitionUtils.transform_2_point(point), fill=(255, 0, 0))
+        d.ellipse(transform_2_point(point), fill=(255, 0, 0))
 
     return pil_image
